@@ -153,7 +153,6 @@ const WorkoutPlan = () => {
     <div className="plan-page">
       <header className="plan-header">
         <div className="plan-header-left">
-          <span className="plan-logo">💪</span>
           <div>
             <h1 className="plan-title">Your Plan</h1>
             <p className="plan-meta">

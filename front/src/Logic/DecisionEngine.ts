@@ -75,7 +75,7 @@ const recommendWorkouts = (exercises: WorkoutExercise[], user: InternalProfile, 
       name: w.name,
       description: w.description,
       score: calculateWorkoutScore(w, user),
-      focus_group: w.focus_group || 'other',
+      focus_group: w.focus_group,
       muscles: w.muscles || [],
       requires_weight: w.requires_weight,
       age_recommendation: w.age_recommendation,
@@ -86,7 +86,7 @@ const recommendWorkouts = (exercises: WorkoutExercise[], user: InternalProfile, 
 
 const groupByFocusGroup = (recommendations: ScoredExercise[]): Record<string, ScoredExercise[]> =>
   recommendations.reduce<Record<string, ScoredExercise[]>>((groups, w) => {
-    const key = w.focus_group || 'other';
+    const key = w.focus_group || 'general';
     if (!groups[key]) groups[key] = [];
     groups[key].push(w);
     return groups;

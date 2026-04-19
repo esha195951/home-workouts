@@ -1,5 +1,5 @@
+import { ExerciseData } from '../Context/SeedWorkoutsData';
 import type { UserProfile, WorkoutPlan, WorkoutLogEntry, RegisterData, WorkoutExercise } from '../types';
-
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -16,37 +16,71 @@ const apiFetch = async <T>(path: string, options?: RequestInit): Promise<T> => {
   return res.json() as Promise<T>;
 };
 
-const apiLogin = (username: string, password: string) =>
-  apiFetch<UserProfile>('/users/login', { method: 'POST', body: JSON.stringify({ username, password }) });
 
-const apiRegister = (data: RegisterData) =>
-  apiFetch<UserProfile>('/users/register', { method: 'POST', body: JSON.stringify(data) });
+const apiLogout = () => apiFetch<{ message: string }>('/users/logout', { method: 'POST' });
 
-const apiLogout = () =>
-  apiFetch<{ message: string }>('/users/logout', { method: 'POST' });
+const apiGetMe = () => apiFetch<UserProfile>('/users/me');
 
-const apiGetMe = () =>
-  apiFetch<UserProfile>('/users/me');
+const apiGetPlan = async (): Promise<WorkoutPlan | null> => {
+  try {
+    return await apiFetch<WorkoutPlan>('/workouts/plan');
+  } catch (error) {
+    console.warn('Failed to fetch plan from backend.', error);
+    return null;
+  }
+};
 
-const apiUpdateMe = (data: Partial<UserProfile>) =>
-  apiFetch<UserProfile>('/users/me', { method: 'PUT', body: JSON.stringify(data) });
+const apiGetLogs = () => apiFetch<WorkoutLogEntry[]>('/workouts/logs');
 
-const apiGetPlan = () =>
-  apiFetch<WorkoutPlan>('/workouts/plan');
+const apiGetExercises = async () => {
+  try {
+    return await apiFetch<WorkoutExercise[]>('/workouts/exercises');
+  } catch (error) {
+    console.warn('Failed to fetch exercises from backend, using frontend seed data.', error);
+    return ExerciseData as unknown as WorkoutExercise[];
+  }
+};
 
-const apiSavePlan = (days: WorkoutPlan['days']) =>
-  apiFetch<WorkoutPlan>('/workouts/plan', { method: 'POST', body: JSON.stringify({ days }) });
+const apiLogin = (username: string, password: string) => apiFetch<UserProfile>('/users/login',
+  {
+    method: 'POST',
+    body: JSON.stringify({ username, password })
+  }
+);
 
-const apiUpdatePlan = (days: WorkoutPlan['days']) =>
-  apiFetch<WorkoutPlan>('/workouts/plan', { method: 'PUT', body: JSON.stringify({ days }) });
+const apiRegister = (data: RegisterData) => apiFetch<UserProfile>('/users/register',
+  {
+    method: 'POST',
+    body: JSON.stringify(data)
+  }
+);
 
-const apiLogWorkout = (log: Omit<WorkoutLogEntry, '_id' | 'synced'>) =>
-  apiFetch<WorkoutLogEntry>('/workouts/log', { method: 'POST', body: JSON.stringify(log) });
+const apiUpdateMe = (data: Partial<UserProfile>) => apiFetch<UserProfile>('/users/me',
+  {
+    method: 'PUT',
+    body: JSON.stringify(data)
+  }
+);
 
-const apiGetLogs = () =>
-  apiFetch<WorkoutLogEntry[]>('/workouts/logs');
+const apiSavePlan = (days: WorkoutPlan['days']) => apiFetch<WorkoutPlan>('/workouts/plan',
+  {
+    method: 'POST',
+    body: JSON.stringify({ days })
+  }
+);
 
-const apiGetExercises = () =>
-    apiFetch<WorkoutExercise[]>('/workouts/exercises');
-  
+const apiUpdatePlan = (days: WorkoutPlan['days']) => apiFetch<WorkoutPlan>('/workouts/plan',
+  {
+    method: 'PUT',
+    body: JSON.stringify({ days })
+  }
+);
+
+const apiLogWorkout = (log: Omit<WorkoutLogEntry, '_id' | 'synced'>) => apiFetch<WorkoutLogEntry>('/workouts/log',
+  {
+    method: 'POST',
+    body: JSON.stringify(log)
+  }
+);
+
 export { apiLogin, apiRegister, apiLogout, apiGetMe, apiUpdateMe, apiGetPlan, apiSavePlan, apiUpdatePlan, apiLogWorkout, apiGetLogs, apiGetExercises };

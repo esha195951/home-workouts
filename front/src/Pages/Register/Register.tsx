@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { useWorkout } from '../../Context/WorkoutContext';
 import { generateWorkoutPlan } from '../../Logic/PlanGenerator';
-import type { RegisterData } from '../../types';
+import type { RegisterData, ProfileSetupData } from '../../types';
+import { SetupForm } from '../../Components/SetupForm/SetupForm';
 import './Register.css';
 
 const Register = () => {
@@ -33,6 +34,10 @@ const Register = () => {
         ? Number(e.target.value)
         : e.target.value;
     setForm(prev => ({ ...prev, [field]: val }));
+  };
+
+  const handleProfileChange = (field: keyof ProfileSetupData, value: string | number | boolean) => {
+    setForm(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -77,44 +82,8 @@ const Register = () => {
               <label className="field-label">Password</label>
               <input className="field-input" type="password" value={form.password} onChange={set('password')} placeholder="min 8 characters" required autoComplete="new-password" />
             </div>
-            <div className="field-group">
-              <label className="field-label">Weight (kg)</label>
-              <input className="field-input" type="number" min={20} max={300} value={form.weight} onChange={set('weight')} required />
-            </div>
-            <div className="field-group">
-              <label className="field-label">Date of Birth</label>
-              <input className="field-input" type="date" max={new Date().toISOString().split('T')[0]} value={form.birthday} onChange={set('birthday')} required />
-            </div>
-            <div className="field-group">
-              <label className="field-label">Gender</label>
-              <select className="field-input" value={form.gender} onChange={set('gender')}>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="field-group">
-              <label className="field-label">Goal</label>
-              <select className="field-input" value={form.goal} onChange={set('goal')}>
-                <option value="muscle_growth">Muscle Growth</option>
-                <option value="weight_loss">Weight Loss</option>
-              </select>
-            </div>
-            <div className="field-group">
-              <label className="field-label">Days per week</label>
-              <input className="field-input" type="number" min={1} max={7} value={form.frequency} onChange={set('frequency')} required />
-            </div>
-            <div className="field-group">
-              <label className="field-label">Session length (min)</label>
-              <input className="field-input" type="number" min={10} max={120} value={form.sessionLength} onChange={set('sessionLength')} required />
-            </div>
           </div>
-          <div className="field-group checkbox-group">
-            <label className="checkbox-label">
-              <input type="checkbox" checked={form.hasWeights} onChange={set('hasWeights')} />
-              <span>I have weights at home</span>
-            </label>
-          </div>
+          <SetupForm values={form} onChange={handleProfileChange} />
           {error && <p className="auth-error">{error}</p>}
           <button className="btn-primary" type="submit" disabled={loading}>
             {loading ? 'Creating your plan...' : 'Get My Plan'}

@@ -2,14 +2,14 @@ export interface WorkoutExercise {
   _id?: string;
   name: string;
   description: string;
-  gender_recommendation: { male: number; female: number; other: number };
+  gender_recommendation: { male: number; female: number };
   requires_weight: boolean;
   weight_loss_recommended: number;
   muscle_growth_recommended: number;
   age_recommendation: { min: number; max: number };
   focus_group: string;
   muscles: string[];
-  gifUrl: string;
+  gifUrl?: string;
 }
 
 export interface Exercise {
@@ -20,7 +20,7 @@ export interface Exercise {
   score?: number;
   can_use_weight: boolean;
   durationMinutes: number;
-  gifUrl: string;
+  gifUrl?: string;
   uid: string;
 }
 
@@ -42,7 +42,7 @@ export interface UserProfile {
   weight?: number;
   birthday?: string;
   age?: number;
-  gender?: 'male' | 'female' | 'other';
+  gender?: 'male' | 'female';
   hasWeights?: boolean;
   goal?: 'weight_loss' | 'muscle_growth';
   frequency?: number;
@@ -63,14 +63,17 @@ export interface WorkoutLogEntry {
   synced?: boolean;
 }
 
-export interface RegisterData {
-  username: string;
-  password: string;
+export interface ProfileSetupData {
   weight: number;
   birthday: string;
-  gender: 'male' | 'female' | 'other';
+  gender: 'male' | 'female';
   hasWeights: boolean;
   goal: 'weight_loss' | 'muscle_growth';
   frequency: number;
   sessionLength: number;
+}
+
+export interface RegisterData extends ProfileSetupData {
+  username: string;
+  password: string;
 }

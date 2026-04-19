@@ -26,7 +26,10 @@ const WorkoutProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   const [plan, setPlan] = useState<WorkoutPlan | null>(null);
   const [logs, setLogs] = useState<WorkoutLogEntry[]>([]);
-  const [exercises, setExercises] = useState<WorkoutExercise[]>([]);
+  const [exercises, setExercises] = useState<WorkoutExercise[]>(() => {
+    const saved = localStorage.getItem(LOCAL_EXERCISES_KEY);
+    return saved ? JSON.parse(saved) : (ExerciseData as WorkoutExercise[]);
+  });
   const [planLoading, setPlanLoading] = useState(false);
   const [exercisesLoading, setExercisesLoading] = useState(false);
 
@@ -60,7 +63,8 @@ const WorkoutProvider = ({ children }: { children: ReactNode }) => {
         setPlan(p);
         localStorage.setItem(LOCAL_PLAN_KEY, JSON.stringify(p));
       })
-      .catch(() => {})
+      .catch(() => {
+      })
       .finally(() => setPlanLoading(false));
 
     apiGetLogs()

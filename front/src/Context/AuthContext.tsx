@@ -1,19 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { UserProfile, RegisterData } from '../types';
+import type { ProfileSetupData, UserProfile, RegisterData } from '../types';
 import { apiGetMe, apiLogin, apiLogout, apiRegister } from '../Api/Api';
 
 const GUEST_PROFILE_KEY = 'hw_guest_profile';
 
-export interface GuestSetupData {
-  weight: number;
-  birthday: string;
-  gender: 'male' | 'female' | 'other';
-  hasWeights: boolean;
-  goal: 'weight_loss' | 'muscle_growth';
-  frequency: number;
-  sessionLength: number;
-}
+export type GuestSetupData = ProfileSetupData;
 
 interface AuthContextType {
   user: UserProfile | null;

@@ -133,7 +133,7 @@ Fields:
 - `password` (string) - hashed password
 - `weight` (number)
 - `birthday` (date)
-- `gender` (string) - one of `male`, `female`, or `other`
+- `gender` (string) - one of `male` or `female`
 - `hasWeights` (boolean)
 - `goal` (string) - `weight_loss` or `muscle_growth`
 - `frequency` (number) - workouts per week

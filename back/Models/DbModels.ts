@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   weight: { type: Number },
   birthday: { type: Date },
-  gender: { type: String, enum: ['male', 'female', 'other'] },
+  gender: { type: String, enum: ['male', 'female'] },
   hasWeights: { type: Boolean, default: false },
   goal: { type: String, enum: ['weight_loss', 'muscle_growth'] },
   frequency: { type: Number, min: 1, max: 7, default: 3 },
@@ -56,7 +56,6 @@ const workoutExerciseSchema = new mongoose.Schema({
   gender_recommendation: {
     male: { type: Number, default: 70 },
     female: { type: Number, default: 70 },
-    other: { type: Number, default: 70 },
   },
   requires_weight: { type: Boolean, required: true },
   weight_loss_recommended: { type: Number, required: true },
@@ -65,7 +64,7 @@ const workoutExerciseSchema = new mongoose.Schema({
     min: { type: Number, default: 12 },
     max: { type: Number, default: 80 },
   },
-  focus_group: { type: String, default: 'other' },
+  focus_group: { type: String, default: 'general' },
   muscles: { type: [String], default: [] },
   gifUrl: { type: String, default: '' },
 }, { timestamps: true });
