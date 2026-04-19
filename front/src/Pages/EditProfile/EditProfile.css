@@ -1,0 +1,26 @@
+.edit-profile-regen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 0.25rem;
+}
+
+.edit-profile-regen input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.edit-profile-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.edit-profile-actions .btn-primary {
+  flex: 1;
+}

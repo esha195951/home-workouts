@@ -161,6 +161,9 @@ const WorkoutPlan = () => {
           </div>
         </div>
         <div className="plan-header-right">
+          <button className="btn-ghost" onClick={() => navigate('/edit-profile')}>
+            ✏️ Edit Profile
+          </button>
           <button className="btn-secondary" onClick={handleRegenerate} disabled={regenerating}>
             {regenerating ? 'Regenerating...' : '↺ Regenerate'}
           </button>

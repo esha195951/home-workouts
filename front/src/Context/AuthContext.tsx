@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { ProfileSetupData, UserProfile, RegisterData } from '../types';
-import { apiGetMe, apiLogin, apiLogout, apiRegister } from '../Api/Api';
+import { apiGetMe, apiLogin, apiLogout, apiRegister, apiUpdateMe } from '../Api/Api';
 
 const GUEST_PROFILE_KEY = 'hw_guest_profile';
 
@@ -15,6 +15,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   setUser: (user: UserProfile | null) => void;
   continueAsGuest: (data: GuestSetupData) => void;
+  updateProfile: (data: ProfileSetupData) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -70,8 +71,19 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(guestProfile);
   };
 
+  const updateProfile = async (data: ProfileSetupData) => {
+    if (user?.isGuest) {
+      const updated: UserProfile = { ...user, ...data };
+      localStorage.setItem(GUEST_PROFILE_KEY, JSON.stringify(updated));
+      setUser(updated);
+    } else {
+      const updated = await apiUpdateMe(data);
+      setUser(updated);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, setUser, continueAsGuest }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, setUser, continueAsGuest, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,6 +5,7 @@ import { Register } from '../Register/Register';
 import { GuestSetup } from '../GuestSetup/GuestSetup';
 import { WorkoutPlan } from '../WorkoutPlan/WorkoutPlan';
 import { WorkoutSession } from '../WorkoutSession/WorkoutSession';
+import { EditProfile } from '../EditProfile/EditProfile';
 import './App.css';
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/plan" />} />
         <Route path="/guest-setup" element={!user ? <GuestSetup /> : <Navigate to="/plan" />} />
         <Route path="/plan" element={user ? <WorkoutPlan /> : <Navigate to="/login" />} />
+        <Route path="/edit-profile" element={user ? <EditProfile /> : <Navigate to="/login" />} />
         <Route path="/session/:day" element={user ? <WorkoutSession /> : <Navigate to="/login" />} />
         <Route path="*" element={<Navigate to={user ? '/plan' : '/login'} />} />
       </Routes>
