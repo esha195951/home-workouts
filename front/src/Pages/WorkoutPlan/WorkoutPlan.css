@@ -1,0 +1,130 @@
+.plan-page {
+  min-height: 100vh;
+  padding: 0 0 3rem;
+}
+
+.plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.plan-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.plan-logo {
+  font-size: 2rem;
+}
+
+.plan-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.plan-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.plan-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.plan-hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1rem 2rem 0;
+  margin: 0;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  padding: 1.25rem 2rem;
+}
+
+.day-column {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 200px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.day-column--over {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.day-number {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  display: block;
+}
+
+.day-focus {
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+
+.day-empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1.5rem 0;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  margin: 0;
+}
+
+.btn-start {
+  background: var(--primary);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-start:hover {
+  opacity: 0.85;
+}
+
+.plan-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 4rem 2rem;
+  color: var(--muted);
+}
