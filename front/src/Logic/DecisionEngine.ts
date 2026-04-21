@@ -65,7 +65,7 @@ interface ScoredExercise {
   muscles: string[];
   requires_weight: boolean;
   age_recommendation: { min: number; max: number };
-  gifUrl: string;
+  demonstration_url?: string;
 }
 
 const recommendWorkouts = (exercises: WorkoutExercise[], user: InternalProfile, limit = 20): ScoredExercise[] =>
@@ -79,7 +79,7 @@ const recommendWorkouts = (exercises: WorkoutExercise[], user: InternalProfile, 
       muscles: w.muscles || [],
       requires_weight: w.requires_weight,
       age_recommendation: w.age_recommendation,
-      gifUrl: w.gifUrl || '',
+      demonstration_url: w.demonstration_url,
     }))
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
@@ -118,7 +118,7 @@ const buildWorkoutPlan = (user: InternalProfile, recommendations: ScoredExercise
           score: w.score,
           can_use_weight: w.requires_weight,
           durationMinutes: Math.max(1, Math.round(user.session_length / Math.max(1, dayWorkouts.length))),
-          gifUrl: w.gifUrl,
+          demonstration_url: w.demonstration_url,
           uid: w.name,
         })),
       };
@@ -146,7 +146,7 @@ const buildWorkoutPlan = (user: InternalProfile, recommendations: ScoredExercise
         score: w.score,
         can_use_weight: w.requires_weight,
         durationMinutes: minutesEach,
-        gifUrl: w.gifUrl,
+        demonstration_url: w.demonstration_url,
         uid: w.name,
       })),
     };

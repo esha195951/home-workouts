@@ -15,12 +15,12 @@ const userSchema = new mongoose.Schema({
 const exerciseSchema = new mongoose.Schema({
   name: String,
   description: String,
+  demonstration_url: { type: String, default: '' },
   muscle_group: String,
   muscles: [String],
   score: Number,
   can_use_weight: Boolean,
   durationMinutes: Number,
-  gifUrl: { type: String, default: '' },
   uid: String,
 }, { _id: false });
 
@@ -53,6 +53,7 @@ const workoutLogSchema = new mongoose.Schema({
 const workoutExerciseSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
+  demonstration_url: { type: String, default: '' },
   gender_recommendation: {
     male: { type: Number, default: 70 },
     female: { type: Number, default: 70 },
@@ -66,7 +67,6 @@ const workoutExerciseSchema = new mongoose.Schema({
   },
   focus_group: { type: String, default: 'general' },
   muscles: { type: [String], default: [] },
-  gifUrl: { type: String, default: '' },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

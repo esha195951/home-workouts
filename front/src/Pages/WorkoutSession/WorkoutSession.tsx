@@ -83,6 +83,8 @@ const WorkoutSession = () => {
     return `${m}:${sec.toString().padStart(2, '0')}`;
   };
 
+  const mediaUrl = currentExercise?.demonstration_url;
+  const isVideoUrl = (url: string) => /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url);
   const progress = totalSeconds > 0 ? timeLeft / totalSeconds : 0;
   const dashOffset = CIRCUMFERENCE * (1 - progress);
 
@@ -166,8 +168,21 @@ const WorkoutSession = () => {
 
       <div className="session-body">
         <div className="session-gif-wrap">
-          {currentExercise?.gifUrl ? (
-            <img className="session-gif" src={currentExercise.gifUrl} alt={currentExercise.name} />
+          {mediaUrl ? (
+            isVideoUrl(mediaUrl) ? (
+              <video
+                className="session-gif"
+                src={mediaUrl}
+                muted
+                autoPlay
+                loop
+                playsInline
+                preload="metadata"
+                controls={false}
+              />
+            ) : (
+              <img className="session-gif" src={mediaUrl} alt={currentExercise?.name} />
+            )
           ) : (
             <div className="session-gif-placeholder">
               <span className="gif-placeholder-icon">🏃</span>

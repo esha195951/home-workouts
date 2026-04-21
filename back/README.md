@@ -172,6 +172,7 @@ Contains the seeded exercise library from `Config/SeedExercises.ts`.
 Fields:
 - `name` (string) - unique exercise identifier
 - `description` (string)
+- `demonstration_url` (string)
 - `gender_recommendation` (object)
 - `requires_weight` (boolean)
 - `weight_loss_recommended` (number)
@@ -179,7 +180,6 @@ Fields:
 - `age_recommendation` (object)
 - `focus_group` (string)
 - `muscles` (array of strings)
-- `gifUrl` (string)
 - timestamps for created/updated records
 
 ## Project Structure

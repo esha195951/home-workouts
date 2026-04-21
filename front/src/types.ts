@@ -2,6 +2,7 @@ export interface WorkoutExercise {
   _id?: string;
   name: string;
   description: string;
+  demonstration_url?: string;
   gender_recommendation: { male: number; female: number };
   requires_weight: boolean;
   weight_loss_recommended: number;
@@ -9,18 +10,17 @@ export interface WorkoutExercise {
   age_recommendation: { min: number; max: number };
   focus_group: string;
   muscles: string[];
-  gifUrl?: string;
 }
 
 export interface Exercise {
   name: string;
   description: string;
+  demonstration_url?: string;
   muscle_group: string;
   muscles: string[];
   score?: number;
   can_use_weight: boolean;
   durationMinutes: number;
-  gifUrl?: string;
   uid: string;
 }
 

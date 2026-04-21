@@ -134,12 +134,21 @@
   border: 1px solid var(--border);
   aspect-ratio: 4/3;
   background: var(--surface);
+  pointer-events: none;
 }
 
 .session-gif {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none;
+}
+
+.session-gif video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
 .session-gif-placeholder {
